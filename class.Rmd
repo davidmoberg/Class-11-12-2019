@@ -1,0 +1,29 @@
+---
+title: "Class"
+author: "David Moberg"
+date: "11/12/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+library(googlesheets4)
+library(rstanarm)
+library(tidyverse)
+```
+
+```{r}
+sheets_deauth()
+vote_survey<-read_sheet("13NhlT-Oik5P4NOKRWwrJ7xZQlddFNk81HHEw9wkWglM")
+
+vote_survey%>%
+  ggplot(aes(partisanship, dvote)) + 
+  geom_jitter(height = .1) + 
+  geom_smooth(method = "lm")
+```
+
+
+```{r}
+mod<- lm(data = vote_survey, dvote~partisanship)
+```
+
